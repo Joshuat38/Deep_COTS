@@ -46,37 +46,41 @@ custom_loader.add_implicit_resolver(u'tag:yaml.org,2002:float',
                                                |\\.(?:nan|NaN|NAN))$''', re.X),
                                    list(u'-+0123456789.'))
 
-parser = argparse.ArgumentParser(description='YoloX Pytorch 1.10 Implementation.', fromfile_prefix_chars='@') # This allows for a command-line interface.
-parser.convert_arg_line_to_args = convert_arg_line_to_args # Override the argparse reader when reading from a .txt file.
 
-# Model operation args
-parser.add_argument('--mode',             type=str,   help='train or test', default='test')
-parser.add_argument('--config',           type=str,   help='path and filename of config file to use', default='yolox_config.yaml')
-parser.add_argument('--batch_size',       type=int,   help='batch size', default=1)
-parser.add_argument('--valid_batch_size', type=int,   help='validation batch size', default=1)
-parser.add_argument('--num_epochs',       type=int,   help='number of epochs', default=50)
-parser.add_argument('--num_gpus',         type=int,   help='number of GPUs to use for training', default=1)
-parser.add_argument('--num_threads',      type=int,   help='number of threads to use for data loading', default=1)
-parser.add_argument('--save_directory',   type=str,   help='directory to save checkpoints and summaries', default='./models')
-parser.add_argument('--pretrained_model', type=str,   help='path to a pretrained model checkpoint to load', default='None')
-parser.add_argument('--initial_epoch',    type=int,   help='if used with pretrained_model, will start from this epoch', default=0)
-parser.add_argument('--gpu_id',           type=str,   help='specifies the gpu to use', default='0')
-
-# if sys.argv.__len__() == 2: # This handls prefixes.
-#     arg_filename_with_prefix = '@' + sys.argv[1]
-#     args = parser.parse_args([arg_filename_with_prefix])
-# else:
-args = parser.parse_args(None)
-     
-if args.num_gpus == 1:
-    os.environ["CUDA_VISIBLE_DEVICES"]= args.gpu_id # Use the specified gpu and ignore all others.
     
-with open(args.config, 'r') as yaml_file:
-    cfg = yaml.load(yaml_file, Loader=custom_loader)
-    cfg['mode'] = args.mode
-    
-def get_inference_model(): # This is a custom testing function. It ensures that the model averages out the total results.
+def get_default_args():
+    parser = argparse.ArgumentParser(description='YoloX Pytorch 1.10 Implementation.', fromfile_prefix_chars='@') # This allows for a command-line interface.
+    parser.convert_arg_line_to_args = convert_arg_line_to_args # Override the argparse reader when reading from a .txt file.
 
+    # Model operation args
+    parser.add_argument('--mode',             type=str,   help='train or test', default='test')
+    parser.add_argument('--config',           type=str,   help='path and filename of config file to use', default='yolox_config.yaml')
+    parser.add_argument('--batch_size',       type=int,   help='batch size', default=1)
+    parser.add_argument('--valid_batch_size', type=int,   help='validation batch size', default=1)
+    parser.add_argument('--num_epochs',       type=int,   help='number of epochs', default=50)
+    parser.add_argument('--num_gpus',         type=int,   help='number of GPUs to use for training', default=1)
+    parser.add_argument('--num_threads',      type=int,   help='number of threads to use for data loading', default=1)
+    parser.add_argument('--save_directory',   type=str,   help='directory to save checkpoints and summaries', default='./models')
+    parser.add_argument('--pretrained_model', type=str,   help='path to a pretrained model checkpoint to load', default='None')
+    parser.add_argument('--initial_epoch',    type=int,   help='if used with pretrained_model, will start from this epoch', default=0)
+    parser.add_argument('--gpu_id',           type=str,   help='specifies the gpu to use', default='0')
+
+    args = parser.parse_args(None)
+         
+    if args.num_gpus == 1:
+        os.environ["CUDA_VISIBLE_DEVICES"]= args.gpu_id # Use the specified gpu and ignore all others.
+        
+    with open(args.config, 'r') as yaml_file:
+        cfg = yaml.load(yaml_file, Loader=custom_loader)
+        cfg['mode'] = args.mode
+        
+    return args, cfg
+    
+def get_inference_model(pretrained_model=None): # This is a custom testing function. It ensures that the model averages out the total results.
+
+
+    args, cfg = get_default_args()
+    args.pretrained_model = pretrained_model
     inference_model = YOLOX_Inference(args, cfg)
     
     return inference_model
