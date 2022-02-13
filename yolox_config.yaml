@@ -1,0 +1,48 @@
+model:
+    encoder: "resnest101"
+    weight_decay: 5e-4
+    num_classes: 1
+    iou_threshold: 0.5
+    score_threshold: 0.01
+    nms_threshold: 0.2
+    max_boxes: 120
+    strides: [8, 16, 32]
+    
+train:
+    inputs_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images"
+    labels_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/5_fold_mixed_train_annotations"
+    data_file: "file_lists/train_files_cots_5_fold_mixed.txt"
+    base_size: [720, 1280]
+    process_size: [960, 960]
+    mosaic: true
+    disable_mosaic_epochs: 5
+    mixup: true
+    label_smoothing: false
+    degrees: 10.0
+    translate: 0.1
+    scale: [0.5, 1.5]
+    shear: 2.0
+    perspective: 0.0
+    max_learning_rate: 6.25e-4
+    min_learning_rate: 0
+    adam_epsilon: 1e-8
+    optimizer: "sgd"
+    lr_schedular: "warmup_cos"
+    lr_divide_factor: 25
+    final_lr_divide_factor: 100
+      
+valid:
+    inputs_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images"
+    labels_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/5_fold_mixed_valid_annotations"
+    data_file: "file_lists/valid_files_cots_5_fold_mixed.txt"
+    batch_size: 1
+    base_size: [720, 1280]
+    process_size: [960, 960]
+  
+test:
+    inputs_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images"
+    labels_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/5_fold_mixed_valid_annotations"
+    data_file: "file_lists/valid_files_cots_5_fold_mixed.txt"
+    batch_size: 1
+    base_size: [720, 1280]
+    process_size: [960, 960]
