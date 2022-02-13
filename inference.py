@@ -65,7 +65,7 @@ def get_default_args():
     parser.add_argument('--initial_epoch',    type=int,   help='if used with pretrained_model, will start from this epoch', default=0)
     parser.add_argument('--gpu_id',           type=str,   help='specifies the gpu to use', default='0')
 
-    args = parser.parse_args(None)
+    args = parser.parse_args(["--mode", "test"])
          
     if args.num_gpus == 1:
         os.environ["CUDA_VISIBLE_DEVICES"]= args.gpu_id # Use the specified gpu and ignore all others.
