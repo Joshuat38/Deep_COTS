@@ -90,7 +90,9 @@ class YOLOX_Inference:
     def __init__(self, args, cfg):
         
         print("\nBuilding inference model...\n")
-                
+              
+        self.args = args
+        self.cfg = cfg
         # Create model
         model = YOLOX(args, cfg)
         model.zero_grad()
@@ -169,7 +171,7 @@ class YOLOX_Inference:
         with torch.no_grad():
             
             img_h, img_w, _ = image.shape
-            sample = {'image': image, 'annotations': []}
+            sample = {'image': image, 'annotations': np.array([])}
             sample = self.composed_transforms(sample)
             inputs = {'image': sample['image']}
             
@@ -186,7 +188,7 @@ class YOLOX_Inference:
             outputs = np.array(outputs[0]).astype(np.float32) # Get the prediction out of the batch format.
             
             outputs = self.postprocess(outputs, img_size=[img_h, img_w], 
-                                           pred_size=cfg['test']['process_size']) # Reshape the bboxes to the correct size.
+                                           pred_size=self.cfg['test']['process_size']) # Reshape the bboxes to the correct size.
         
         return outputs
         
