@@ -62,11 +62,11 @@ parser.add_argument('--pretrained_model', type=str,   help='path to a pretrained
 parser.add_argument('--initial_epoch',    type=int,   help='if used with pretrained_model, will start from this epoch', default=0)
 parser.add_argument('--gpu_id',           type=str,   help='specifies the gpu to use', default='0')
 
-if sys.argv.__len__() == 2: # This handls prefixes.
-    arg_filename_with_prefix = '@' + sys.argv[1]
-    args = parser.parse_args([arg_filename_with_prefix])
-else:
-    args = parser.parse_args()
+# if sys.argv.__len__() == 2: # This handls prefixes.
+#     arg_filename_with_prefix = '@' + sys.argv[1]
+#     args = parser.parse_args([arg_filename_with_prefix])
+# else:
+args = parser.parse_args()
      
 if args.num_gpus == 1:
     os.environ["CUDA_VISIBLE_DEVICES"]= args.gpu_id # Use the specified gpu and ignore all others.
