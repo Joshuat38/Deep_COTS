@@ -177,12 +177,13 @@ class YOLOX_Inference:
             
             cuda_inputs = {key : val.unsqueeze(0) if torch.is_tensor(val) else torch.tensor(val).unsqueeze(0) for key, val in inputs.items()}
             
-            outputs = self.model(cuda_inputs)
+            with torch.cuda.amp.autocast():
+                outputs = self.model(cuda_inputs)
                 
-            imgs = inputs['image'].permute(0, 2, 3, 1).numpy()
+            imgs = inputs['image'].unsqueeze(0).permute(0, 2, 3, 1).numpy()
             img_shape = [[int(imgs[i].shape[0]), int(imgs[i].shape[1])] for i in range(imgs.shape[0])]
             
-            outputs = yolox_post_process(outputs=outputs['annotations'].detach().cpu(), 
+            outputs = yolox_post_process(outputs=outputs['annotations'],
                                          img_shape=img_shape, **self.post_process_kwargs)
             
             outputs = np.array(outputs[0]).astype(np.float32) # Get the prediction out of the batch format.
@@ -191,4 +192,18 @@ class YOLOX_Inference:
                                            pred_size=self.cfg['test']['process_size']) # Reshape the bboxes to the correct size.
         
         return outputs
+    
+if __name__=='__main__':
+    
+    import cv2
+    
+    model = get_inference_model(pretrained_model='./models/resnest101/model_checkpoint')
+    
+    img_path = '/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images/video_0/16.jpg'
+    
+    img = cv2.cvtColor(cv2.imread(img_path, 1), cv2.COLOR_BGR2RGB) # Must be in RGB form.
+
+    predictions = model.predict(img)
+
+    print(predictions)
         
