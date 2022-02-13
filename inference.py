@@ -23,7 +23,7 @@ from torchvision import transforms
 # Custom imports
 from models import YOLOX
 from utils import yolox_post_process
-from COTS import Preprocess, Normalize, ToTensor
+from cots import Preprocess, Normalize, ToTensor
 
 def convert_arg_line_to_args(arg_line):
     """ A useful override of this for argparse to treat each space-separated 
