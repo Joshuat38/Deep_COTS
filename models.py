@@ -304,26 +304,26 @@ class Encoder(nn.Module):
         self.cfg = cfg
         
         if cfg['model']['encoder'] == 'vit_base_patch16_384':
-            self.base_model = timm.create_model(cfg['model']['encoder'], pretrained=True)
+            self.base_model = timm.create_model(cfg['model']['encoder'], pretrained=False)
             self.feat_names = ['2', '5', '8', '11']
             self.feat_out_channels = [0, 768, 768, 768, 768]
             self.input_shape = [384, 384]
             
         elif cfg['model']['encoder'] == 'vit_large_patch16_384':
-            self.base_model = timm.create_model(cfg['model']['encoder'], pretrained=True)
+            self.base_model = timm.create_model(cfg['model']['encoder'], pretrained=False)
             self.feat_names = ['4', '11', '17', '23']
             self.feat_out_channels = [0, 1024, 1024, 1024, 1024]
             self.input_shape = [384, 384]
             
         elif cfg['model']['encoder'] == 'vit_base_resnet50_384':
-            self.base_model = timm.create_model(cfg['model']['encoder'], pretrained=True)
+            self.base_model = timm.create_model(cfg['model']['encoder'], pretrained=False)
             self.feat_names = ['stem.norm', 'stages.0', 'stages.1', '8', '11']
             self.feat_out_channels = [64, 256, 512, 768, 768]
             self.input_shape = [384, 384]
             
         elif cfg['model']['encoder'] == 'swin_base_patch4_window12_384':
             self.base_model = timm.create_model(cfg['model']['encoder'], 
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_names = ['0', '1', '2', '3']
             self.feat_out_channels = [0, 256, 512, 1024, 1024]
             self.input_shape = [384, 384]
@@ -339,7 +339,7 @@ class Encoder(nn.Module):
             
         elif cfg['model']['encoder'] == 'swin_large_patch4_window12_384':
             self.base_model = timm.create_model(cfg['model']['encoder'],
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_names = ['0', '1', '2', '3']
             self.feat_out_channels = [0, 384, 768, 1536, 1536]
             self.input_shape = [384, 384]
@@ -356,7 +356,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'efficientnet_b0':
             self.base_model = timm.create_model(model_name='tf_efficientnet_b0_ap', 
                                                 features_only=True,
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_out_channels = [16, 24, 40, 112, 320]
             self.base_model.global_pool = nn.Identity()
             self.base_model.classifier = nn.Identity()
@@ -365,7 +365,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'efficientnet_b4':
             self.base_model = timm.create_model(model_name='tf_efficientnet_b4_ap', 
                                            features_only=True,
-                                           pretrained=True)
+                                           pretrained=False)
             self.feat_out_channels = [24, 32, 56, 160, 448]
             self.base_model.global_pool = nn.Identity()
             self.base_model.classifier = nn.Identity()
@@ -374,7 +374,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'efficientnet_b5':
             self.base_model = timm.create_model(model_name='tf_efficientnet_b5_ap', 
                                                 features_only=True,
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_out_channels = [24, 40, 64, 176, 512]
             self.base_model.global_pool = nn.Identity()
             self.base_model.classifier = nn.Identity()
@@ -383,7 +383,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'efficientnet_b7':
             self.base_model = timm.create_model(model_name='tf_efficientnet_b7_ap', 
                                                 features_only=True,
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_out_channels = [32, 48, 80, 224, 640]
             self.base_model.global_pool = nn.Identity()
             self.base_model.classifier = nn.Identity()
@@ -392,7 +392,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'resnet101':
             self.base_model = timm.create_model(model_name='resnet101d',
                                                 features_only=True,
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_out_channels = [64, 256, 512, 1024, 2048]
             self.base_model.global_pool = nn.Identity()
             self.base_model.fc = nn.Identity()
@@ -401,7 +401,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'resnet50':
             self.base_model = timm.create_model(model_name='resnet50d',
                                                 features_only=True,
-                                                pretrained=True)
+                                                pretrained=False)
             self.stages = ['relu', 'layer1', 'layer2', 'layer3', 'layer4']
             self.feat_out_channels = [64, 256, 512, 1024, 2048]
             self.base_model.global_pool = nn.Identity()
@@ -411,7 +411,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'resnest101':
             self.base_model = timm.create_model(model_name='resnest101e',
                                                 features_only=True,
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_out_channels = [64, 256, 512, 1024, 2048]
             self.base_model.global_pool = nn.Identity()
             self.base_model.fc = nn.Identity()
@@ -420,7 +420,7 @@ class Encoder(nn.Module):
         elif cfg['model']['encoder'] == 'hrnet64':
             self.base_model = timm.create_model('hrnet_w64', 
                                                 features_only=True, 
-                                                pretrained=True)
+                                                pretrained=False)
             self.feat_out_channels = [64, 128, 256, 512, 1024]
             self.input_shape = None
             
