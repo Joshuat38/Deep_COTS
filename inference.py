@@ -199,7 +199,7 @@ if __name__=='__main__':
     
     model = get_inference_model(pretrained_model='./models/resnest101/model_checkpoint')
     
-    img_path = '/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images/video_0/16.jpg'
+    img_path = '<your_path_to_sample>/tensorflow-great-barrier-reef/train_images/video_0/16.jpg'
     
     img = cv2.cvtColor(cv2.imread(img_path, 1), cv2.COLOR_BGR2RGB) # Must be in RGB form.
 
