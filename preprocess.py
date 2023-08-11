@@ -42,7 +42,7 @@ def get_coco_format_bbox(img_w, img_h, bbox):
 
     return [bbox['x'], bbox['y'], bbox['x']+w, bbox['y']+h]
 
-ROOT_DIR = '/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef'
+ROOT_DIR = '<you_path_to_the_dataset>/tensorflow-great-barrier-reef'
 SPLIT_DIR = ROOT_DIR + '/sample_splits/train-validation-split'
 TRAIN_DIR = ROOT_DIR + '/train_images'
 TRAIN_LABELS_DIR = ROOT_DIR + '/train_annotations'
