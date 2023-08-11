@@ -16,7 +16,6 @@ def num_boxes(annotations):
     annotations = ast.literal_eval(annotations)
     return len(annotations)
 
-# !!! I will need to change this to give me everything in x1y1x2y2 format for success to be mine.
 # Desired format = x1, y1, x2, y2, class_label
 def get_yolo_format_bbox(img_w, img_h, bbox):
     w = bbox['width'] 
@@ -43,7 +42,7 @@ def get_coco_format_bbox(img_w, img_h, bbox):
 
     return [bbox['x'], bbox['y'], bbox['x']+w, bbox['y']+h]
 
-ROOT_DIR = '/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef'
+ROOT_DIR = '<you_path_to_the_dataset>/tensorflow-great-barrier-reef'
 SPLIT_DIR = ROOT_DIR + '/sample_splits/cross-validation'
 TRAIN_DIR = ROOT_DIR + '/train_images'
 TRAIN_LABELS_DIR = ROOT_DIR + '/5_fold_mixed_train_annotations'
