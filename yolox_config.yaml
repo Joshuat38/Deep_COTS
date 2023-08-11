@@ -9,8 +9,8 @@ model:
     strides: [8, 16, 32]
     
 train:
-    inputs_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images"
-    labels_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/5_fold_mixed_train_annotations"
+    inputs_path: "<you_path_to_the_dataset>/tensorflow-great-barrier-reef/train_images"
+    labels_path: "<you_path_to_the_dataset>/tensorflow-great-barrier-reef/5_fold_mixed_train_annotations"
     data_file: "file_lists/train_files_cots_5_fold_mixed.txt"
     base_size: [720, 1280]
     process_size: [960, 960]
@@ -32,16 +32,16 @@ train:
     final_lr_divide_factor: 100
       
 valid:
-    inputs_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images"
-    labels_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/5_fold_mixed_valid_annotations"
+    inputs_path: "<you_path_to_the_dataset>/tensorflow-great-barrier-reef/train_images"
+    labels_path: "<you_path_to_the_dataset>/competitions/tensorflow-great-barrier-reef/5_fold_mixed_valid_annotations"
     data_file: "file_lists/valid_files_cots_5_fold_mixed.txt"
     batch_size: 1
     base_size: [720, 1280]
     process_size: [960, 960]
   
 test:
-    inputs_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/train_images"
-    labels_path: "/media/joshua/Storage_A/Kaggle_Datasets/competitions/tensorflow-great-barrier-reef/5_fold_mixed_valid_annotations"
+    inputs_path: "<you_path_to_the_dataset>/tensorflow-great-barrier-reef/train_images"
+    labels_path: "<you_path_to_the_dataset>/tensorflow-great-barrier-reef/5_fold_mixed_valid_annotations"
     data_file: "file_lists/valid_files_cots_5_fold_mixed.txt"
     batch_size: 1
     base_size: [720, 1280]
