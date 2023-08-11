@@ -15,7 +15,6 @@ def num_boxes(annotations):
     annotations = ast.literal_eval(annotations)
     return len(annotations)
 
-# !!! I will need to change this to give me everything in x1y1x2y2 format for success to be mine.
 # Desired format = x1, y1, x2, y2, class_label
 def get_yolo_format_bbox(img_w, img_h, bbox):
     w = bbox['width'] 
